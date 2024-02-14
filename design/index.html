@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-100">
+  <p class="mx-auto text-center w-4/5 pt-4 font-bold italic text-2xl">Your sentence here</p>
+  <div id="story" class="grid grid-cols-1 gap-4 lg:grid-cols-2 invisible">
+    <div class="mx-auto pt-4 px-2">
+      <img class="mx-auto max-h-[500px] rounded-lg" src="https://unsplash.it/1024?random">
+    </div>
+
+    <div class="px-8 pt-8 lg:pt-0">
+      <p class="text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto">Once upon a time. Once upon a time. Once upon a time. Once upon a time. Once upon a time.</p>
+    </div>
+  </div>
+  <canvas id="keys" class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
