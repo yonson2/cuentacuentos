@@ -45,7 +45,7 @@ fastify.post('/create', async (request, reply) => {
     }
   }
 
-  await client.db("cuentacuentos").collection('stories').insertOne({ id: newId, title: story.title, panels: story.panels, status: "finished" });
+  await client.db("cuentacuentos").collection('stories').insertOne({ id: newId, title: story.title, panels: story.panels, status: "finished", premise: yourPremise });
   reply.redirect(`/${newId}`);
 });
 
