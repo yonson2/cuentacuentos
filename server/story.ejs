@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="module" crossorigin src="/assets/index-DiMfd-VX.js"></script>
+  <script type="module" crossorigin src="/assets/index-DEVkLGzq.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-B6TeGQzJ.css">
 </head>
 
@@ -27,47 +27,6 @@
   </div>
   <canvas id="keys"
     class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
-  <script type="module">
-    let current = 0;
-    function setPanel() {
-      const images = document.querySelectorAll('.storyImage')
-      images.forEach((img) => img.classList.add('hidden'));
-      const image = document.querySelector(`#img${current}`);
-      image.classList.remove('hidden');
-
-      const texts = document.querySelectorAll('.storyText')
-      texts.forEach((t) => t.classList.add('hidden'));
-      const txt = document.querySelector(`#text${current}`);
-      txt.classList.remove('hidden');
-    }
-    setPanel();
-
-    //TODO: do something on last?
-    function advance() {
-      if (current !== (document.querySelectorAll('.storyImage').length - 1)) {
-        current++;
-        setPanel();
-      }
-    }
-
-    function goBack() {
-      if (current !== 0) {
-        current--;
-        setPanel();
-      }
-    }
-
-    function handleNext(event) {
-      advance();
-    }
-    function handlePrev(event) {
-      goBack();
-    }
-
-    // Add an event listener to listen for the custom event
-    document.addEventListener('nextImage', handleNext);
-    document.addEventListener('prevImage', handlePrev);
-  </script>
 </body>
 
 </html>
