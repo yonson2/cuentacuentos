@@ -12,36 +12,39 @@
   <p id="storyTitle" class="mx-auto text-center w-4/5 pt-4 font-bold italic text-2xl"><%= story.title %></p>
   <div id="story" class="grid grid-cols-1 gap-4 lg:grid-cols-2 invisible">
     <div class="mx-auto pt-4 px-2">
+      <% story.panels.forEach(function(panel) { %>
+      <img id="img<%= panel.part %>" class="storyImage mx-auto max-h-[500px] rounded-lg hidden" src="<%= panel.image %>">
+      <% }) %>
       <img class="mx-auto max-h-[500px] rounded-lg" src="">
     </div>
 
     <div class="px-8 pt-8 lg:pt-0">
+      <% story.panels.forEach(function(panel) { %>
+      <p id="text<%= panel.part %>" class="storyText text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto hidden"><%= panel.text %></p>
+      <% }) %>
       <p id="textPanel" class="text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto"></p>
     </div>
   </div>
   <canvas id="keys"
     class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
   <script type="module">
-    const story = {
-      id: "<%= story.id %>",
-      status: "<%= story.status %>",
-      panels: <%- JSON.stringify(story.panels, null, ' ') %>,
-    };
-
     let current = 0;
     function setPanel() {
-      const image = document.querySelector('img');
-      image.src = story.panels[current].image;
+      const images = document.querySelectorAll('.storyImage')
+      images.forEach((img) => img.classList.add('hidden'));
+      const image = document.querySelector(`#img${current}`);
+      image.classList.remove('hidden');
 
-      const text = document.querySelector('#textPanel');
-      text.textContent = story.panels[current].text;
+      const texts = document.querySelectorAll('.storyText')
+      texts.forEach((t) => t.classList.add('hidden'));
+      const txt = document.querySelector(`#text${current}`);
+      txt.classList.remove('hidden');
     }
-
     setPanel();
 
     //TODO: do something on last?
     function advance() {
-      if (current !== (story.panels.length - 1)) {
+      if (current !== (document.querySelectorAll('.storyImage').length - 1)) {
         current++;
         setPanel();
       }
@@ -56,11 +59,9 @@
 
     function handleNext(event) {
       advance();
-      console.log(`Received next, now ${current}`);
     }
     function handlePrev(event) {
       goBack();
-      console.log(`Received prev, now ${current}`);
     }
 
     // Add an event listener to listen for the custom event
