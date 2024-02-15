@@ -8,7 +8,7 @@ fastify.register(require('@fastify/formbody'));
 fastify.register(require('@fastify/static'), { root: path.join(__dirname, '') });
 fastify.register(require("@fastify/view"), { engine: { ejs: require("ejs") } });
 
-const client = new MongoClient('mongodb+srv://cuentacuentos:DKsklJ3aPF5xkE73@cuentacuentos.ioecxjb.mongodb.net/?retryWrites=true&w=majority', {
+const client = new MongoClient(process.env.CC_MONGO_DB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
