@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" crossorigin src="/assets/index-DiMfd-VX.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B6TeGQzJ.css">
+</head>
+
+<body class="bg-slate-100">
+  <p id="storyTitle" class="mx-auto text-center w-4/5 pt-4 font-bold italic text-2xl"><%= story.title %></p>
+  <div id="story" class="grid grid-cols-1 gap-4 lg:grid-cols-2 invisible">
+    <div class="mx-auto pt-4 px-2">
+      <img class="mx-auto max-h-[500px] rounded-lg" src="">
+    </div>
+
+    <div class="px-8 pt-8 lg:pt-0">
+      <p id="textPanel" class="text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto"></p>
+    </div>
+  </div>
+  <canvas id="keys"
+    class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
+  <script type="module">
+    const story = {
+      id: "<%= story.id %>",
+      status: "<%= story.status %>",
+      panels: <%- JSON.stringify(story.panels, null, ' ') %>,
+    };
+
+    let current = 0;
+    function setPanel() {
+      const image = document.querySelector('img');
+      image.src = story.panels[current].image;
+
+      const text = document.querySelector('#textPanel');
+      text.textContent = story.panels[current].text;
+    }
+
+    setPanel();
+
+    //TODO: do something on last?
+    function advance() {
+      if (current !== (story.panels.length - 1)) {
+        current++;
+        setPanel();
+      }
+    }
+
+    function goBack() {
+      if (current !== 0) {
+        current--;
+        setPanel();
+      }
+    }
+
+    function handleNext(event) {
+      advance();
+      console.log(`Received next, now ${current}`);
+    }
+    function handlePrev(event) {
+      goBack();
+      console.log(`Received prev, now ${current}`);
+    }
+
+    // Add an event listener to listen for the custom event
+    document.addEventListener('nextImage', handleNext);
+    document.addEventListener('prevImage', handlePrev);
+  </script>
+</body>
+
+</html>

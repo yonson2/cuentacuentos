@@ -3,6 +3,13 @@ import { gsap } from "gsap";
 
 const canvas = document.getElementById('keys');
 const app = new Application(canvas);
+// Create a custom event
+const customEvent = new CustomEvent('myCustomEvent', {
+  detail: { message: 'Hello from main.js' }
+});
+
+// Dispatch the event
+document.dispatchEvent(customEvent);
 
 app.load('https://prod.spline.design/PYrHCTePYXgZZs5h/scene.splinecode')
 // app.load('https://prod.spline.design/ivXh0h8YFRZpWXLq/scene.splinecode') // single keyboard
@@ -19,19 +26,22 @@ app.load('https://prod.spline.design/PYrHCTePYXgZZs5h/scene.splinecode')
       stagger: 0.2,
     });
 
-    // app.addEventListener('mouseDown', (e) => {
-    //   console.log(`I have clicked down: ${e.target.name}`);
-    // });
-    // app.addEventListener('mouseUp', (e) => {
-    //   console.log(`I have clicked up: ${e.target.name}`);
-    // });
-    // app.addEventListener('keyUp', (e) => {
-    //   console.log(`I have keyed up: ${e.target.name}`);
-    // });
-    // app.addEventListener('keyDown', (e) => {
-    //   console.log(`I have keyed down: ${e.target.name}`);
-    // });
+    app.addEventListener('mouseUp', (e) => {
+      dispatchEvent(e);
+    });
+    app.addEventListener('keyUp', (e) => {
+      dispatchEvent(e);
+    });
   });
+
+function dispatchEvent(e) {
+  if (e.target.name === 'rightkey') {
+    document.dispatchEvent(new CustomEvent('nextImage'));
+  }
+  if (e.target.name === 'leftkey') {
+    document.dispatchEvent(new CustomEvent('prevImage'));
+  }
+}
 
 document.addEventListener("DOMContentLoaded", function() {
   gsap.to(['#story', '#keys'], {

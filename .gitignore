@@ -1,0 +1,4 @@
+design/node_modules
+design/dist
+server/node_modules
+server/.env

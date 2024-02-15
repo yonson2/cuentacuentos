@@ -8,18 +8,75 @@
 </head>
 
 <body class="bg-slate-100">
-  <p class="mx-auto text-center w-4/5 pt-4 font-bold italic text-2xl">Your sentence here</p>
+  <p id="storyTitle" class="mx-auto text-center w-4/5 pt-4 font-bold italic text-2xl"></p>
   <div id="story" class="grid grid-cols-1 gap-4 lg:grid-cols-2 invisible">
     <div class="mx-auto pt-4 px-2">
-      <img class="mx-auto max-h-[500px] rounded-lg" src="https://unsplash.it/1024?random">
+      <img class="mx-auto max-h-[500px] rounded-lg" src="">
     </div>
 
     <div class="px-8 pt-8 lg:pt-0">
-      <p class="text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto">Once upon a time. Once upon a time. Once upon a time. Once upon a time. Once upon a time.</p>
+      <p id="textPanel" class="text-center italic font-light lg:font-extralight lg:text-4xl lg:mt-[250px] mx-auto">Once upon a time.
+        Once upon a time. Once upon a time. Once upon a time. Once upon a time.</p>
     </div>
   </div>
-  <canvas id="keys" class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
+  <canvas id="keys"
+    class="mx-auto w-screen h-screen fixed overflow-hidden bottom-[-26%] lg:bottom-[-10%] invisible"></canvas>
   <script type="module" src="/main.js"></script>
+  <script type="module">
+    const fake = {
+      id: "your sentece",
+      status: "finished",
+      title: "A title",
+      panels: [
+        {part: 0, text: "text 0", image: "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAADMElEQVR4nOzVwQnAIBQFQYXff81RUkQCOyDj1YOPnbXWPmeTRef+/3O/OyBjzh3CD95BfqICMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMO0TAAD//2Anhf4QtqobAAAAAElFTkSuQmCC"},
+        {part: 1, text: "text 1", image: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQz0AEYBxVSF+FABJADveWkH6oAAAAAElFTkSuQmCC"},
+        {part: 2, text: "text 2", image: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNk+M9Qz0AEYBxVSF+FAAhKDveksOjmAAAAAElFTkSuQmCC"},
+        {part: 3, text: "text 3", image: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC"},
+        {part: 4, text: "text 4", image: "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8/5+hnoEIwDiqkL4KAcT9GO0U4BxoAAAAAElFTkSuQmCC"},
+      ]
+    };
+
+    document.querySelector('#storyTitle').textContent = fake.title;
+
+    let current = 0;
+    function setPanel() {
+      const image = document.querySelector('img');
+      image.src = "data:image/png;base64," + fake.panels[current].image;
+
+      const text = document.querySelector('#textPanel');
+      text.textContent = fake.panels[current].text;
+    }
+
+    setPanel();
+
+    //TODO: do something on last?
+    function advance() {
+      if (current !== (fake.panels.length - 1)) {
+        current++;
+        setPanel();
+      }
+    }
+
+    function goBack() {
+      if (current !== 0) {
+        current--;
+        setPanel();
+      }
+    }
+
+    function handleNext(event) {
+      advance();
+      console.log(`Received next, now ${current}`);
+    }
+    function handlePrev(event) {
+      goBack();
+      console.log(`Received prev, now ${current}`);
+    }
+
+    // Add an event listener to listen for the custom event
+    document.addEventListener('nextImage', handleNext);
+    document.addEventListener('prevImage', handlePrev);
+  </script>
 </body>
 
 </html>
