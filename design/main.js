@@ -12,10 +12,26 @@ const customEvent = new CustomEvent('myCustomEvent', {
 document.dispatchEvent(customEvent);
 
 app.load('https://prod.spline.design/PYrHCTePYXgZZs5h/scene.splinecode')
-// app.load('https://prod.spline.design/ivXh0h8YFRZpWXLq/scene.splinecode') // single keyboard
+  // app.load('https://prod.spline.design/ivXh0h8YFRZpWXLq/scene.splinecode') // single keyboard
   .then(() => {
     const right = app.findObjectByName('tecladerecha');
     const left = app.findObjectByName('teclaizquierda');
+
+    // gsap.set(right.scale, {
+    //   x: 1,
+    //   y: 1,
+    //   z: 1,
+    // });
+    // gsap.to(right.position, {
+    //   x: 200,
+    //   y: -70,
+    //   duration: 2,
+    //   onComplete: () => gsap.to(right.position, {
+    //     x: 0,
+    //     y: 900,
+    //     duration: 2,
+    //   })
+    // });
     gsap.to([right.rotation, left.rotation], {
       y: Math.PI / 64, 
       x: Math.PI / 30,
